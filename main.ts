@@ -2,7 +2,7 @@ import { call, main, sleep, Operation, suspend, useAbortSignal } from "effection
 
 import { createRevolution, route } from "revolution";
 
-main(function* () {
+await main(function* () {
   const revolution = createRevolution({
     app: [
       route<Response>("/(.*)", function* (request): Operation<Response> {
