@@ -1,4 +1,4 @@
-import { call, main, sleep, Operation, suspend, useAbortSignal } from "effection";
+import { call, main, sleep, Operation, suspend } from "effection";
 
 import { createRevolution, route } from "revolution";
 
@@ -19,6 +19,7 @@ await main(function* () {
           headers: request.headers,
           body: request.body,
           redirect: 'manual',
+          signal: request.signal
         }));
       }),
     ],
