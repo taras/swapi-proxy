@@ -7,7 +7,6 @@ await main(function* () {
     app: [
       route<Response>("/(.*)", function* (request): Operation<Response> {
         const { pathname, searchParams } = new URL(request.url);
-        const signal = yield* useAbortSignal();
 
         const delay = searchParams.get("delay");
         if (delay) {
@@ -20,7 +19,6 @@ await main(function* () {
           headers: request.headers,
           body: request.body,
           redirect: 'manual',
-          signal,
         }));
       }),
     ],
