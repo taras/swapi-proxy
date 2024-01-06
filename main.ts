@@ -1,26 +1,28 @@
-import { call, main, sleep, Operation, suspend } from "effection";
+import { Operation, call, main, suspend } from "effection";
 
 import { createRevolution, route } from "revolution";
+import { forceError } from "./forceError.ts";
+import { forceDelay } from "./forceDelay.ts";
 
-await main(function* () {
+await main(function* (): Operation<void> {
   const revolution = createRevolution({
     app: [
-      route<Response>("/(.*)", function* (request): Operation<Response> {
+      forceDelay,
+      forceError,
+      route<Response>("/(.*)", function* (request) {
         const { pathname, searchParams } = new URL(request.url);
-
-        const delay = searchParams.get("delay");
-        if (delay) {
-          searchParams.delete("delay")
-          yield* sleep(parseInt(delay));
-        }
-
-        return yield* call(fetch(new URL(`${pathname}?${searchParams}`, "https://swapi.py4e.com"), {
-          method: request.method,
-          headers: request.headers,
-          body: request.body,
-          redirect: 'manual',
-          signal: request.signal
-        }));
+        return yield* call(
+          fetch(
+            new URL(`${pathname}?${searchParams}`, "https://swapi.py4e.com"),
+            {
+              method: request.method,
+              headers: request.headers,
+              body: request.body,
+              redirect: "manual",
+              signal: request.signal,
+            }
+          )
+        );
       }),
     ],
   });
