@@ -4,6 +4,7 @@
   },
   "imports": {
     "effection": "https://deno.land/x/effection@3.0.1/mod.ts",
-    "revolution": "https://deno.land/x/revolution@0.3.1/mod.ts"
+    "revolution": "https://deno.land/x/revolution@0.3.2/mod.ts",
+    "edge_cors": "https://deno.land/x/edge_cors@0.2.1/src/cors.ts"
   }
 }
